@@ -1,0 +1,7 @@
+[Down]
+87 = "Up"
+
+[Pressed]
+266 = "IncreaseScale"
+267 = "DecreaseScale"
+300 = "ToggleFullscreen"

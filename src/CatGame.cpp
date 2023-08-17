@@ -1,0 +1,107 @@
+#include "CatGame.h"
+
+#include <iostream>
+#include <algorithm>
+#include <vector>
+
+#include <raymath.h>
+
+#include "GameStateManager.h"
+#include "InputManager.h"
+#include "OptionsManager.h"
+
+CatGame::CatGame(std::shared_ptr<GameStateManager> game_state_manager, std::shared_ptr<InputManager> input_manager, std::shared_ptr<OptionsManager> options_manager) : IGameState(game_state_manager, input_manager, options_manager)
+{
+	std::shared_ptr<TextureManager> texture_manager = std::make_shared<TextureManager>();
+	
+	animal_generator = std::make_unique<AnimalGenerator>(texture_manager);
+	world = std::make_unique<World>();
+	map = std::make_unique<Map>("ForestMap");
+
+	cats.push_back(animal_generator->generateCat("Leader"));
+	cats.push_back(animal_generator->generateCat("Deputy"));
+
+	cats.at(0).setBody(world->createBody(b2_dynamicBody, { 4.0f, 4.0f }));
+	cats.at(1).setBody(world->createBody(b2_dynamicBody, { 0.0f, 4.0f }));
+
+	world_camera.target = World::toPixel(cats.at(0).getBody()->GetPosition());
+	world_camera.offset = Vector2{options_manager->getResolutionManager()->getGameWidth() / 2, options_manager->getResolutionManager()->getGameHeight() / 2 };
+	world_camera.rotation = 0.0f;
+	world_camera.zoom = 1.0f;
+
+	input_manager->registerCallback("MoveUp", [&] (float dt)
+		{
+			cats.at(0).getBody()->ApplyForceToCenter(b2Vec2 { 0.0f, -20.0f * dt } , true);
+		});
+	input_manager->registerCallback("MoveDown", [&] (float dt)
+		{
+			cats.at(0).getBody()->ApplyForceToCenter(b2Vec2{ 0.0f, 20.0f * dt}, true);
+		});
+	input_manager->registerCallback("MoveRight", [&] (float dt)
+		{
+			cats.at(0).getBody()->ApplyForceToCenter(b2Vec2{ 20.0f * dt, 0.0f }, true);
+		});
+	input_manager->registerCallback("MoveLeft", [&](float dt)
+		{
+			cats.at(0).getBody()->ApplyForceToCenter(b2Vec2{ -20.0f * dt, 0.0f }, true);
+		});
+}
+
+void CatGame::processInput(float dt)
+{
+	
+}
+
+void CatGame::update(float dt)
+{
+	world->update();
+	for (auto& cat : cats)
+	{
+		cat.update(dt);
+	}
+	
+	//world_camera.target = World::toPixel(cats.at(0).getBody()->GetPosition());
+	Vector2 cat_target = World::toPixel(cats.at(0).getBody()->GetPosition());
+
+	//std::cout << GetMousePosition().x << "  " << GetMousePosition().y << std::endl;
+
+	world_camera.target = Vector2Add(cat_target, Vector2Subtract(GetMousePosition(), world_camera.offset));
+
+}
+
+void CatGame::draw(float dt)
+{
+	ClearBackground(BLACK);
+
+	/*
+	DrawLine(options_manager->getResolutionManager()->getGameWidth() / 2, 0, 
+		options_manager->getResolutionManager()->getGameWidth() / 2, options_manager->getResolutionManager()->getGameHeight(), WHITE);
+	DrawLine(0, options_manager->getResolutionManager()->getGameHeight() / 2,
+		options_manager->getResolutionManager()->getGameWidth(), options_manager->getResolutionManager()->getGameHeight() / 2, WHITE);
+	*/
+
+
+	BeginMode2D(world_camera);
+	{
+		map->draw(dt, Vector2Subtract(world_camera.target, world_camera.offset));
+
+		for (auto& cat : cats)
+		{
+			cat.draw(dt);
+		}
+	}
+	EndMode2D();
+}
+
+void CatGame::leave()
+{
+	input_manager->clearCallbacks();
+}
+
+void CatGame::enter()
+{
+}
+
+
+
+////////////////////////////////////////
