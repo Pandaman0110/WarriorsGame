@@ -18,7 +18,7 @@ const float GAME_HEIGHT = 360;
 static void DrawTextBoxed(Font font, const char* text, Rectangle rec, float fontSize, float spacing, bool wordWrap, Color tint);   // Draw text using font inside rectangle limits
 static void DrawTextBoxedSelectable(Font font, const char* text, Rectangle rec, float fontSize, float spacing, bool wordWrap, Color tint, int selectStart, int selectLength, Color selectTint, Color selectBackTint);    // Draw text using font inside rectangle limits with support for text selection
 
-Startup::Startup(std::shared_ptr<GameStateManager> game_state_manager, std::shared_ptr<InputManager> input_manager, std::shared_ptr<OptionsManager> options_manager) : IGameState(game_state_manager, input_manager, options_manager)
+Startup::Startup(std::shared_ptr<GameStateManager> game_state_manager, std::shared_ptr<OptionsManager> options_manager) : IGameState(game_state_manager, options_manager)
 {
     font = LoadFontEx("rainyhearts.ttf", 15, NULL, 0);
     this->loadQuotes();
@@ -33,7 +33,7 @@ void Startup::processInput(float dt)
 {
     if (IsKeyPressed(KEY_SPACE))
     {
-        game_state_manager->changeState(std::make_unique<MainMenu>(game_state_manager, input_manager, options_manager));
+        game_state_manager->changeState(std::make_unique<MainMenu>(game_state_manager, options_manager));
     }
 
     if (IsKeyPressed(KEY_RIGHT))

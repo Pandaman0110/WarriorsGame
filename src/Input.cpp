@@ -1,4 +1,4 @@
-#include "InputManager.h"
+#include "Input.h"
 
 #include <iostream>
 #include <fstream>
@@ -6,7 +6,7 @@
 
 #include <toml.hpp>
 
-InputManager::InputManager()
+Input::Input()
 {
 	this->generateKeyNames();
 
@@ -15,12 +15,12 @@ InputManager::InputManager()
 	this->setKeybinds(KeybindGroup::USER);
 }
 
-InputManager::~InputManager()
+Input::~Input()
 {
 	this->saveKeybinds();
 }
 
-void InputManager::pollInputs(float dt)
+void Input::pollInputs(float dt)
 {
 	//TODO allow the same key to have a pressed functionality and a held down functionality
 	
@@ -44,7 +44,7 @@ void InputManager::pollInputs(float dt)
 	}
 }
 
-void InputManager::registerCallback(std::string event, std::function<void(float)> callback)
+void Input::registerCallback(std::string event, std::function<void(float)> callback)
 {
 	if (std::find(pressed_keybinds.begin(), pressed_keybinds.end(), event) != pressed_keybinds.end())
 		pressed_event_callbacks.insert({ event, callback });
@@ -52,7 +52,7 @@ void InputManager::registerCallback(std::string event, std::function<void(float)
 		down_event_callbacks.insert({ event, callback });
 }
 
-void InputManager::triggerEvent(std::string event, std::multimap<std::string, std::function<void(float)>> callbacks, float dt) const
+void Input::triggerEvent(std::string event, std::multimap<std::string, std::function<void(float)>> callbacks, float dt) const
 {
 	auto range = callbacks.equal_range(event);
 
@@ -60,13 +60,13 @@ void InputManager::triggerEvent(std::string event, std::multimap<std::string, st
 		i->second(dt);
 }
 
-void InputManager::clearCallbacks()
+void Input::clearCallbacks()
 {
 	pressed_event_callbacks.clear();
 	down_event_callbacks.clear();
 }
 
-auto InputManager::getKeybindGroup(KeybindGroup group) 
+auto Input::getKeybindGroup(KeybindGroup group) 
 {
 	toml::table keybinds;
 
@@ -83,7 +83,7 @@ auto InputManager::getKeybindGroup(KeybindGroup group)
 	return keybinds;
 }
 
-void InputManager::setKeybinds(KeybindGroup group)
+void Input::setKeybinds(KeybindGroup group)
 {
 	auto keybinds = this->getKeybindGroup(group);
 
@@ -107,7 +107,7 @@ void InputManager::setKeybinds(KeybindGroup group)
 	}
 }
 
-void InputManager::saveKeybinds() const
+void Input::saveKeybinds() const
 {
 	auto keybinds = toml::parse_file("Keybinds.toml");
 
@@ -141,7 +141,7 @@ void InputManager::saveKeybinds() const
 	output.close();
 }
 
-void InputManager::generateKeyNames()
+void Input::generateKeyNames()
 {
 	auto key_name = toml::parse_file("KeyNames.toml");
 

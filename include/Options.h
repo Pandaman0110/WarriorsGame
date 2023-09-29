@@ -11,7 +11,7 @@ class Options : public IGameState
 private:
 
 public:
-	Options(std::shared_ptr<GameStateManager> game_state_manager, std::shared_ptr<InputManager> input_manager, std::shared_ptr<OptionsManager> options_manager);
+	Options(std::shared_ptr<GameStateManager> game_state_manager, std::shared_ptr<OptionsManager> options_manager);
 
 	void processInput(float dt) override;
 	void update(float dt) override;

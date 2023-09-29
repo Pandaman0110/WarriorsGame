@@ -13,7 +13,7 @@
 #include "LevelEditor.h"
 #include "CatGame.h"
 
-MainMenu::MainMenu(std::shared_ptr<GameStateManager> game_state_manager, std::shared_ptr<InputManager> input_manager, std::shared_ptr<OptionsManager> options_manager) : IGameState(game_state_manager, input_manager, options_manager)
+MainMenu::MainMenu(std::shared_ptr<GameStateManager> game_state_manager, std::shared_ptr<OptionsManager> options_manager) : IGameState(game_state_manager, options_manager)
 {
 	play_toggle = false;
 }
@@ -38,7 +38,7 @@ void MainMenu::draw(float dt)
 	{
 		if (GuiButton(Rectangle{ 100, 210, 80, 40 }, "New Game"))
 		{
-			game_state_manager->changeState(std::make_unique<CatGame>(game_state_manager, input_manager, options_manager));
+			game_state_manager->changeState(std::make_unique<CatGame>(game_state_manager, options_manager));
 		}
 		if (GuiButton(Rectangle{ 100, 260, 80, 40 }, "Load Game"))
 		{
@@ -47,11 +47,11 @@ void MainMenu::draw(float dt)
  	}
 	if (GuiButton(Rectangle{ 10, 260, 80, 40 }, "Editor"))
 	{
-		game_state_manager->changeState(std::make_unique<LevelEditor>(game_state_manager, input_manager, options_manager));
+		game_state_manager->changeState(std::make_unique<LevelEditor>(game_state_manager, options_manager));
 	}
 	if (GuiButton(Rectangle{ 10, 310, 80, 40 }, "Options"))
 	{
-		game_state_manager->changeState(std::make_unique<Options>(game_state_manager, input_manager, options_manager));
+		game_state_manager->changeState(std::make_unique<Options>(game_state_manager, options_manager));
 	}
 }
 

@@ -17,13 +17,19 @@ Map::Map(std::string map_name) : map_name(map_name)
 
 	position = { 0, 0 };
 
-
 	this->drawToBuffer(position);
 }
 
 void Map::draw(float dt, const Vector2& position)
 {
-	DrawTexture(buffer.texture, 0, 0, WHITE);
+	this->position.x = position.x - GAME_WIDTH / 2;
+	this->position.y = position.y - GAME_HEIGHT / 2;
+
+	//this->drawToBuffer(this->position);
+
+	//DrawTextureV(buffer.texture, this->position, WHITE);
+	//DrawTextureV(buffer.texture, { 0, 0 }, WHITE);
+	tilemap->draw(position);
 }
 
 void Map::drawToBuffer(const Vector2& position)

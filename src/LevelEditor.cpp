@@ -5,7 +5,7 @@
 
 #include "GameStateManager.h"
 
-LevelEditor::LevelEditor(std::shared_ptr<GameStateManager> game_state_manager, std::shared_ptr<InputManager> input_manager, std::shared_ptr<OptionsManager> options_manager) : IGameState(game_state_manager, input_manager, options_manager)
+LevelEditor::LevelEditor(std::shared_ptr<GameStateManager> game_state_manager, std::shared_ptr<OptionsManager> options_manager) : IGameState(game_state_manager, options_manager)
 {
 	
 }

@@ -188,7 +188,7 @@
     <ClCompile Include="src\AnimalGenerator.cpp" />
     <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\GameStateManager.cpp" />
-    <ClCompile Include="src\InputManager.cpp" />
+    <ClCompile Include="src\Input.cpp" />
     <ClCompile Include="src\LevelEditor.cpp" />
     <ClCompile Include="src\MainMenu.cpp" />
     <ClCompile Include="src\Options.cpp" />
@@ -209,7 +209,7 @@
     <ClInclude Include="include\Entity.h" />
     <ClInclude Include="include\IGameState.h" />
     <ClInclude Include="include\GameStateManager.h" />
-    <ClInclude Include="include\InputManager.h" />
+    <ClInclude Include="include\Input.h" />
     <ClInclude Include="include\LevelEditor.h" />
     <ClInclude Include="include\MainMenu.h" />
     <ClInclude Include="include\Options.h" />

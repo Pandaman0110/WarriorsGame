@@ -10,8 +10,8 @@
 #include "World.h"
 #include "TextureAtlas.h"
 
-const int DRAW_TILE_WIDTH = 24;
-const int DRAW_TILE_HEIGHT = 16;
+const int DRAW_TILE_WIDTH = 30;
+const int DRAW_TILE_HEIGHT = 20;
 
 const int TILE_SIZE = 32;
 

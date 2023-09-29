@@ -5,21 +5,19 @@
 #include <memory>
 
 class GameStateManager;
-class InputManager;
+class Input;
 class OptionsManager;
 
 class IGameState
 {
 protected:
 	std::shared_ptr<GameStateManager> game_state_manager;
-	std::shared_ptr<InputManager> input_manager;
 	std::shared_ptr<OptionsManager> options_manager;
 public:
 	IGameState() {};
-	IGameState(std::shared_ptr<GameStateManager> game_state_manager, std::shared_ptr<InputManager> input_manager, std::shared_ptr<OptionsManager> options_manager)
+	IGameState(std::shared_ptr<GameStateManager> game_state_manager, std::shared_ptr<OptionsManager> options_manager)
 	{
 		this->game_state_manager = game_state_manager;
-		this->input_manager = input_manager;
 		this->options_manager = options_manager;
 	};
 	

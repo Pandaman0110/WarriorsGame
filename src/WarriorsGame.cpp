@@ -14,7 +14,7 @@
 #include <thread>
 
 #include "GameStateManager.h"
-#include "InputManager.h"
+#include "Input.h"
 #include "OptionsManager.h"
 
 #include "Startup.h"
@@ -36,11 +36,13 @@ int main()
     Font font = LoadFontEx("fonts/poco.ttf", 12, NULL, 0);
     GuiLoadStyle("warriorsgame.rgs");
     GuiSetFont(font);
-    
+
+    //Input loading 
+    input = Input();
    
     //Game stuff
     std::shared_ptr<GameStateManager> game_state_manager = std::make_shared<GameStateManager>();
-    std::shared_ptr<InputManager> input_manager = std::make_shared<InputManager>();
+    
     std::shared_ptr<OptionsManager> options_manager = std::make_shared<OptionsManager>();
     
     //options_manager->getResolutionManager()->toggleFullscreen();
@@ -49,6 +51,7 @@ int main()
     int scale = options_manager->getResolutionManager()->getScale();
     RenderTexture framebuffer = LoadRenderTexture(game_rect.width, abs(game_rect.height));
 
+    /*
     input_manager->registerCallback("ToggleFullscreen", [&] (float dt) {options_manager->getResolutionManager()->toggleFullscreen(); });
     input_manager->registerCallback("IncreaseScale",
         [&] (float dt)
@@ -60,8 +63,8 @@ int main()
         {
             options_manager->getResolutionManager()->decreaseScale();
         });
-
-    game_state_manager->changeState(std::make_unique<Startup>(game_state_manager, input_manager, options_manager));
+    */
+    game_state_manager->changeState(std::make_unique<Startup>(game_state_manager, options_manager));
 
     Texture custom_cursor = LoadTexture("cursor_catpaw.png");
     HideCursor();
@@ -76,7 +79,7 @@ int main()
         screen_rect = options_manager->getResolutionManager()->getScreenRect();
 
         //Input
-        input_manager->pollInputs(dt);
+        input.pollInputs(dt);
         game_state_manager->processInput(dt);
        
         // Update

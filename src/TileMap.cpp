@@ -29,7 +29,6 @@ void TileMap::draw(const Vector2& position)
 			texture_atlas->drawImage(*tile, this->position);
 		}
 	}
-	
 }
 
 void TileMap::loadMap(std::string map_name)

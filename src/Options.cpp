@@ -11,7 +11,7 @@
 #include "OptionsManager.h"
 #include "MainMenu.h"
 
-Options::Options(std::shared_ptr<GameStateManager> game_state_manager, std::shared_ptr<InputManager> input_manager, std::shared_ptr<OptionsManager> options_manager) : IGameState(game_state_manager, input_manager, options_manager)
+Options::Options(std::shared_ptr<GameStateManager> game_state_manager, std::shared_ptr<OptionsManager> options_manager) : IGameState(game_state_manager, options_manager)
 {
 }
 
@@ -43,7 +43,7 @@ void Options::draw(float dt)
 	}
 	if (GuiButton(Rectangle{ 10, 330, 40, 20 }, "Back"))
 	{
-		game_state_manager->changeState(std::make_unique<MainMenu>(game_state_manager, input_manager, options_manager));
+		game_state_manager->changeState(std::make_unique<MainMenu>(game_state_manager, options_manager));
 	}
 }
 

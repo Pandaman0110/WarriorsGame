@@ -1,5 +1,5 @@
-#ifndef INPUTMANAGER_H
-#define INPUTMANAGER_H
+#ifndef INPUT_H
+#define INPUT_H
 
 #include <queue>
 #include <array>
@@ -15,7 +15,7 @@ enum class KeybindGroup
 	USER
 };
 
-class InputManager
+class Input
 {
 private:
 	std::map<int, std::string> key_names;
@@ -39,8 +39,8 @@ private:
 
 	void generateKeyNames();
 public:
-	InputManager();
-	~InputManager();
+	Input();
+	~Input();
 
 	void pollInputs(float dt);
 
@@ -51,5 +51,7 @@ public:
 
 	void clearCallbacks();
 };
+
+extern Input input;
 
 #endif
