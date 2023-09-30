@@ -6,7 +6,7 @@
 
 TileMap::TileMap(std::string map_name) : height(-1), width(-1)
 {
-	texture_atlas = std::make_unique<TextureAtlas>(LoadTexture("tile_textures.png"), TILE_SIZE);
+	texture_atlas = std::make_unique<TextureAtlas>(LoadTexture("assets/images/tile_textures.png"), TILE_SIZE);
 
 	this->loadMap(map_name);
 

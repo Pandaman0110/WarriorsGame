@@ -4,5 +4,5 @@
 
 TextureManager::TextureManager()
 {
-	cat_textures = std::make_shared<TextureAtlas>(LoadTexture("cat_textures.png"), 32);
+	cat_textures = std::make_shared<TextureAtlas>(LoadTexture("assets/art/cat_textures.png"), 32);
 }

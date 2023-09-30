@@ -223,13 +223,13 @@
     <ClInclude Include="include\TextureAtlas.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="DefaultKeybinds.toml" />
-    <None Include="ForestMap.toml" />
-    <None Include="Keybinds.toml" />
-    <None Include="KeyNames.toml" />
-    <None Include="Names.toml" />
-    <None Include="Options.toml" />
-    <None Include="Quotes.toml" />
+    <None Include="assets\data\DefaultKeybinds.toml" />
+    <None Include="assets\data\ForestMap.toml" />
+    <None Include="assets\data\Keybinds.toml" />
+    <None Include="assets\data\KeyNames.toml" />
+    <None Include="assets\data\Names.toml" />
+    <None Include="assets\data\Options.toml" />
+    <None Include="assets\data\Quotes.toml" />
     <None Include="warriorsgame.rgs" />
   </ItemGroup>
   <ItemGroup>
@@ -237,10 +237,11 @@
     <Font Include="Fonts\rainyhearts.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="cat_textures.png" />
-    <Image Include="cursor_catpaw.png" />
-    <Image Include="tile_textures.png" />
-    <Image Include="tree.png" />
+    <Image Include="assets\images\cat_textures.png" />
+    <Image Include="assets\images\cursor_catpaw.png" />
+    <Image Include="assets\images\pig.png" />
+    <Image Include="assets\images\tile_textures.png" />
+    <Image Include="assets\images\tree.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
